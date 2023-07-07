@@ -1,31 +1,59 @@
-# HTMLletsupgrade
-aasignment
+<!DOCTYPE html>
 <html>
 <head>
-  <title>MY WEBPAGE</title>
-  <style>
-    header {
-      background-color: #87CEEB;
-      text-align: center;
-    }
-  </style>
+    <title>Fill and Fly Balloon Game</title>
+    <style>
+        .balloon {
+            width: 100px;
+            height: 150px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: transform 0.5s ease;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Brand Lence</h1>
-  </header>
-<h3>
-<font face="sans" size="5.89"  align="RIGHT">
-			<a href="#">HOME</a>&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="#">WOMENS</a>&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="#">KIDS</a>&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="#">MENS</a>&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="#">CONTACT US</a>
-			</font>
-			</h3>
-			<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-  <main>
-    <p>This is the main content of my webpage.</p>
-  </main>
+    <div class="balloon"></div>
+
+    <script>
+        var balloons = document.getElementsByClassName("balloon");
+        var currentIndex = 0;
+
+        fillBalloons();
+
+        function fillBalloons() {
+            if (currentIndex >= balloons.length) {
+                flyAway(balloons[currentIndex - 1]);
+                return;
+            }
+
+            var currentBalloon = balloons[currentIndex];
+            var fillInterval = setInterval(function() {
+                inflateBalloon(currentBalloon);
+
+                if (currentBalloon.offsetWidth >= 200 && currentBalloon.offsetHeight >= 300) {
+                    clearInterval(fillInterval);
+                    currentIndex++;
+                    fillBalloons();
+                }
+            }, 50);
+        }
+
+        function inflateBalloon(balloon) {
+            balloon.style.transform = "scale(1.1)";
+        }
+
+        function flyAway(balloon) {
+            balloon.style.animation = "flyaway 2s forwards";
+
+            setTimeout(function() {
+                balloon.remove();
+            }, 2000);
+        }
+    </script>
 </body>
 </html>
